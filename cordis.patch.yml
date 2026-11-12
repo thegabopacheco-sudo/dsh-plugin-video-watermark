@@ -1,0 +1,16 @@
+# dsh-plugin-video-watermark — capa bundle de DSH.
+# Inserta una fila @deepseek-ai/dsh-mcp-client que lanza el servidor como "watermark".
+# Tools resultantes: mcp__watermark__* (ver README).
+- insert:
+    - id: mcp-video-watermark
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: watermark
+        transport: stdio
+        command: !!js process.execPath
+        args:
+          - !!js "(process.env.DSH_HOME && process.env.DSH_HOME.trim() !== '' ? process.env.DSH_HOME : (process.env.USERPROFILE || process.env.HOME || '') + '/.dsh') + '/plugins/video-watermark/server.mjs'"
+        env:
+          ELECTRON_RUN_AS_NODE: '1'
+        failOnStartupError: false
+        toolCallTimeoutMs: 60000
